@@ -33,7 +33,7 @@ void led_1_task(void *p) {
     int delay = 0;
 
     while (true) {
-        if (xQueueReceive(xQueueButId, &delay, pdMS_TO_TICKS(10))) {
+        if (xQueueReceive(xQueueButId, &delay, 0)) {
             printf("%d\n", delay);
         }
 
@@ -42,9 +42,8 @@ void led_1_task(void *p) {
             vTaskDelay(pdMS_TO_TICKS(delay));
             gpio_put(LED_PIN_R, 0);
             vTaskDelay(pdMS_TO_TICKS(delay));
-            delay = 0;
         } else {
-            vTaskDelay(pdMS_TO_TICKS(50));
+            vTaskDelay(pdMS_TO_TICKS(100));
         }
     }
 }
@@ -76,7 +75,7 @@ void led_2_task(void *p) {
     int delay = 0;
 
     while (true) {
-        if (xQueueReceive(xQueueButId_g, &delay, pdMS_TO_TICKS(10))) {
+        if (xQueueReceive(xQueueButId_g, &delay, 0)) {
             printf("%d\n", delay);
         }
 
@@ -85,9 +84,8 @@ void led_2_task(void *p) {
             vTaskDelay(pdMS_TO_TICKS(delay));
             gpio_put(LED_PIN_G, 0);
             vTaskDelay(pdMS_TO_TICKS(delay));
-            delay = 0; 
         } else {
-            vTaskDelay(pdMS_TO_TICKS(50));
+            vTaskDelay(pdMS_TO_TICKS(100));
         }
     }
 }
