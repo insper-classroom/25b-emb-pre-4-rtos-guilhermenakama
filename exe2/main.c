@@ -36,14 +36,10 @@ void btn_1_task(void *p) {
   gpio_init(BTN_PIN_R);
   gpio_set_dir(BTN_PIN_R, GPIO_IN);
   gpio_pull_up(BTN_PIN_R);
+  gpio_set_irq_enabled(BTN_PIN_R, GPIO_IRQ_EDGE_FALL, true);
 
   while (true) {
-    if (!gpio_get(BTN_PIN_R)) {
-      while (!gpio_get(BTN_PIN_R)) {
-        vTaskDelay(pdMS_TO_TICKS(1));
-      }
-      xSemaphoreGive(xSemaphore_r);
-    }
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
 
@@ -69,13 +65,10 @@ void btn_2_task(void *p) {
   gpio_set_dir(BTN_PIN_G, GPIO_IN);
   gpio_pull_up(BTN_PIN_G);
 
+  gpio_set_irq_enabled(BTN_PIN_G, GPIO_IRQ_EDGE_FALL, true);
+
   while (true) {
-    if (!gpio_get(BTN_PIN_G)) {
-      while (!gpio_get(BTN_PIN_G)) {
-        vTaskDelay(pdMS_TO_TICKS(1));
-      }
-      xSemaphoreGive(xSemaphore_g);
-    }
+    vTaskDelay(pdMS_TO_TICKS(100));
   }
 }
 
